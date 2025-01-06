@@ -1,5 +1,5 @@
 
-package test.com.bank.application;
+package test.com.bank;
 
 
 import main.com.bank.application.BankService;
@@ -57,6 +57,25 @@ public class BankServiceTest {
     void withdraw_shouldThrowException_whenInsufficientBalance() {
         // Given
         Amount withdrawAmount = Amount.of(BigDecimal.valueOf(1000));
+
+        // When / Then
+        assertThrows(IllegalArgumentException.class, () -> bankService.withdraw(withdrawAmount));
+    }
+
+
+    @Test
+    void deposit_shouldThrowException_whenNegativeValue() {
+        // Given
+        Amount depositAmount = Amount.of(BigDecimal.valueOf(-1000));
+
+        // When / Then
+        assertThrows(IllegalArgumentException.class, () -> bankService.deposit(depositAmount));
+    }
+
+    @Test
+    void withdraw_shouldThrowException_whenNegativeValue() {
+        // Given
+        Amount withdrawAmount = Amount.of(BigDecimal.valueOf(-1000));
 
         // When / Then
         assertThrows(IllegalArgumentException.class, () -> bankService.withdraw(withdrawAmount));
